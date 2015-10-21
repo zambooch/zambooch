@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database
+        name="default"
+        defaultIdMethod="native"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.7/database.xsd"
+        namespace="Wiki\MainBundle\Model">
+
+    <table name="wiki" description="Wiki">
+        <column name="id"                   type="integer"  required="true" primaryKey="true" autoIncrement="true" />
+        <column name="title"                type="varchar"  required="true" primaryString="true" />
+        <column name="text"                 type="longvarchar"     required="true" />
+
+    </table>
+</database>

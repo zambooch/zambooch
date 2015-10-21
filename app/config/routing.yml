@@ -1,0 +1,19 @@
+edit:
+    resource: "@WikiMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+add:
+    resource: "@WikiMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+show:
+    resource: "@WikiMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+homepage:
+    resource: "@WikiMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+acme_library:
+    resource: "@AcmeLibraryBundle/Resources/config/routing.yml"
+    prefix:   /

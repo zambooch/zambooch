@@ -1,0 +1,4 @@
+task_new:
+  pattern:  /task
+  defaults:
+    _controller: AcmeTaskBundle:Default:new

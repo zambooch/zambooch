@@ -1,0 +1,6 @@
+services:
+  # Форма Создать страницу
+  wiki_main.type.page_form:
+        class: Wiki\MainBundle\Type\PageType
+        tags:
+            - {name: form.type, alias: page_form }

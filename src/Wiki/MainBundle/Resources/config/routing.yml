@@ -1,0 +1,17 @@
+add:
+    pattern: /wiki/add
+    defaults: { _controller: WikiMainBundle:Default:add }
+
+edit:
+    pattern: /wiki/edit/{id}
+    defaults: { _controller: WikiMainBundle:Default:edit }
+
+show:
+    pattern:  /wiki/{id}
+    defaults: { _controller: WikiMainBundle:Default:show }
+    requirements:
+        page: \d+
+
+homepage:
+    pattern:  /wiki
+    defaults: { _controller: WikiMainBundle:Default:index }
