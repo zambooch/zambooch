@@ -5,6 +5,8 @@ add:
 edit:
     pattern: /wiki/edit/{id}
     defaults: { _controller: WikiMainBundle:Default:edit }
+    requirements:
+        id: \d+
 
 show:
     pattern:  /wiki/{id}

@@ -44,6 +44,18 @@ class PageType extends BaseAbstractType
                         'message' => 'Поле обязательно для заполнения'
                     )),
                 )
+            ))
+            ->add('alias', 'text', array (
+                'label'     => 'Alias',
+                'required'  => TRUE,
+                'attr' => array(
+                    'class' => 'form-control',
+                ),
+                'constraints' => array (
+                    new NotBlank(array(
+                        'message' => 'Поле обязательно для заполнения'
+                    )),
+                )
             ));
 
 
