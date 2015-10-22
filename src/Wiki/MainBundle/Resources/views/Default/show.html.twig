@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}{{ id }}{% endblock %}</title>
+    <title>{% block title %}Добро пожаловать на страницу {{ obj.title }}{% endblock %}</title>
     <meta charset="utf-8">
 </head>
 <body>
-<p>Страница просмотра</p>
-{{ id }}
+{% block content %}
+    <br/>
+    <p><h3>Заголовок страницы {{ obj.alias }} {{ obj.title }}</h3></p>
+    <hr>
+    <p><em>{{ obj.title }}</em></p>
+    <br/>
+    <p><em>{{ obj.text }}</em></p>
+{% endblock %}
 </body>
 </html>
 

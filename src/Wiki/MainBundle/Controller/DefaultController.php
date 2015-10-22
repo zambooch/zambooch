@@ -16,12 +16,18 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('WikiMainBundle:Default:index.html.twig');
+        $objects = WikiQuery::create()->find();
+        return $this->render('WikiMainBundle:Default:index.html.twig', array('objects'=>$objects));
     }
 
-    public function showAction($id)
+    public function showAction($alias)
     {
-        return $this->render('WikiMainBundle:Default:show.html.twig', array('id' => $id));
+        $obj = WikiQuery::create()
+            ->findOneByAlias($alias);
+        if (!$obj) {
+            throw $this->createNotFoundException('не найдено'.$alias);
+        }
+        return $this->render('WikiMainBundle:Default:show.html.twig', array('obj' => $obj));
     }
 
     public function addAction(Request $request)
@@ -32,7 +38,7 @@ class DefaultController extends Controller
             try {
                 $page = $this->addPage($form);
                 $this->addFlash('success','Страница успешно создана' );
-                //редирект на страницу просмотра Страницы
+                //редирект на страницу просмотра
                 return $this->redirect($this->generateUrl('homepage', array(
                     'id'=> $page->getId()
                 )));
@@ -53,6 +59,7 @@ class DefaultController extends Controller
         $page
             ->setTitle($data['title'])
             ->setText($data['text'])
+            ->setAlias($data['alias'])
             ->save();
         return $page;
     }
@@ -80,10 +87,11 @@ class DefaultController extends Controller
                         $page
                             ->setTitle($data['title'])
                             ->setText($data['text'])
+                            ->setAlias($data['alias'])
                             ->save();
                         $this->addFlash('success', 'Страница успешно обновлена');
                         //редирект на страницу просмотра Страницы
-                        return $this->redirect($this->generateUrl('edit/{id}', array(
+                        return $this->redirect($this->generateUrl('/wiki/{id}', array(
                             'id' => $page->getId()
                         )));
                     } catch (\Exception $e)

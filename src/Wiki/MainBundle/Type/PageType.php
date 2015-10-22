@@ -36,7 +36,7 @@ class PageType extends BaseAbstractType
                     )),
                 )
             ))
-            ->add('text', 'text', array(
+            ->add('text', 'textarea', array(
                 'label' => 'Text',
                 'required' => TRUE,
                 'constraints' => array (

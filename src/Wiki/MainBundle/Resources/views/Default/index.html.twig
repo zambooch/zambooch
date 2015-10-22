@@ -5,7 +5,17 @@
     <meta charset="utf-8">
 </head>
 <body>
-<p>Привет! Это основная страница</p>
+<p>Привет! Вот ссылки на существующие страницы</p>
+<hr>
+<h4>Список:</h4>
+{% for object in objects %}
+    <ul>
+        <em><li><a href="{{ path('show', {'alias': object.alias}) }}">
+            {{ object.title }} </br></br>
+        </a></li></em>
+    </ul>
+{% endfor %}
+<hr>
 <p><a href="{{ path('homepage') }}">Основная страница</a></p>
 <p><a href="{{ path('add') }}">Добавить страницу</a></p>
 

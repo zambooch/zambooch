@@ -6,13 +6,13 @@ edit:
     pattern: /wiki/edit/{id}
     defaults: { _controller: WikiMainBundle:Default:edit }
     requirements:
-        id: \d+
+        page: id \d+
 
 show:
-    pattern:  /wiki/{id}
+    pattern:  /wiki/{alias}
     defaults: { _controller: WikiMainBundle:Default:show }
     requirements:
-        page: \d+
+        page: alias \w+
 
 homepage:
     pattern:  /wiki
