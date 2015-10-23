@@ -64,52 +64,55 @@ class DefaultController extends Controller
         return $page;
     }
 
-    private function getPage($id)
+    private function getPageDel($alias)
     {
-        return WikiQuery::create()->findPK(intval($id));
+        return WikiQuery::create()->findOneByAlias($alias);
     }
 
-    public function editAction(Request $request, $id)
+    // опишем метод удаления существующих страниц
+    public function deleteAction(Request $request, $alias)
     {
-        $page = $this->getPage($id); //ищет проект
-        if(!is_null($page))
-        {
+        $page_del = $this->getPageDel($alias); //ищем страницу по ее алиасу
+        $page_del->delete(); //удаляем страницу
+        $this->addFlash('success','Проект успешно удалён');
+        return $this->render('WikiMainBundle:Default:delete.html.twig'); //переходим в шаблон удаления
+    }
+
+    private function getPage($alias)
+    {
+        return WikiQuery::create()->findOneByAlias($alias);
+    }
+
+
+    // опишем метод редактирования существующих страниц
+    public function editAction (Request $request, $alias)
+    {
+        $page = $this->getPage($alias);
+        if (!is_null($page)) {
             $form = $this->createForm('page_form', $page);
             $form->handleRequest($request);
-            if ($request->getMethod() == 'POST')
-            {
-                $form->handleRequest($request);
-                if ($form->isValid())
-                {
-                    try
-                    {
-                        $data = $form->getData();
-                        $page
-                            ->setTitle($data['title'])
-                            ->setText($data['text'])
-                            ->setAlias($data['alias'])
-                            ->save();
-                        $this->addFlash('success', 'Страница успешно обновлена');
-                        //редирект на страницу просмотра Страницы
-                        return $this->redirect($this->generateUrl('/wiki/{id}', array(
-                            'id' => $page->getId()
-                        )));
-                    } catch (\Exception $e)
-                    {
-                        $form->addError(new FormError($e->getMessage()));
-                    }
+            if ($form->isValid()) {
+                try {
+                    $page = $form->getData();
+                    $page->save();
+                    $this->addFlash('success', 'Проект успешно обновлен');
+                    return $this->redirect($this->generateUrl('show', array(
+                        'alias' => $page->getAlias()
+                    )));
+                } catch (\Exception $e) {
+                    $form->addError (new FormError($e->getMessage()));
                 }
             }
             return $this->render('WikiMainBundle:Default:edit.html.twig', [
-                'form' => $form->createView(),
-
+                'form'      => $form->createView(),
+                'page'      => $page
             ]);
-        }
-        else
-        {
-            $this->addFlash('success', 'Нет такой страницы');
 
-            return $this->redirect($this->generateUrl('homepage'));
         }
+        else {
+            $this->addFlash('success', 'Oops! Страница еще не создана');
+            return $this->redirect($this->generateUrl('add'));
+        }
+
     }
 }

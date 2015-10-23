@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block head %}
+    <title>{% block title %}Great!{% endblock %}</title>
+    <meta charset="utf-8">
+{% endblock head %}
+
+{% block body %}
+    <p>Отлично! Вы только что удалили ненужную страницу!</p>
+    <p>Вы можете вернуться к списку существующих страниц<a href="{{ path('homepage') }}"> здесь</a></p>
+{% endblock body %}
+

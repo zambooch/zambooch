@@ -1,0 +1,20 @@
+{# 'WikiMainBundle/Resources/views/Default/base.html.twig' #}
+<html>
+<head>
+    {# ... #}
+
+    {% block stylesheets %}
+        <link href="{{ asset('web/bundles/framework/css/body.css') }}" type="text/css" rel="stylesheet" />
+    {% endblock %}
+</head>
+<body>
+
+{# ... #}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/main.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+
+</body>
+</html>

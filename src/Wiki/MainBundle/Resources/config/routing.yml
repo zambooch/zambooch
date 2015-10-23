@@ -3,16 +3,20 @@ add:
     defaults: { _controller: WikiMainBundle:Default:add }
 
 edit:
-    pattern: /wiki/edit/{id}
+    pattern: /wiki/edit/{alias}
     defaults: { _controller: WikiMainBundle:Default:edit }
     requirements:
-        page: id \d+
+        page: alias \d+
 
 show:
     pattern:  /wiki/{alias}
     defaults: { _controller: WikiMainBundle:Default:show }
     requirements:
         page: alias \w+
+
+page-delete:
+    pattern:  /page-delete/{alias}
+    defaults: { _controller: WikiMainBundle:Default:delete }
 
 homepage:
     pattern:  /wiki

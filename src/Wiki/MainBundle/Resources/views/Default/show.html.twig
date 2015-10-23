@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends '::base.html.twig' %}
+
+{% block head %}
     <title>{% block title %}Добро пожаловать на страницу {{ obj.title }}{% endblock %}</title>
     <meta charset="utf-8">
-</head>
-<body>
-{% block content %}
+{% endblock head %}
+
+{% block body %}
     <br/>
     <p><h3>Заголовок страницы {{ obj.alias }} {{ obj.title }}</h3></p>
     <hr>
     <p><em>{{ obj.title }}</em></p>
     <br/>
     <p><em>{{ obj.text }}</em></p>
-{% endblock %}
-</body>
-</html>
+{% endblock body %}
 

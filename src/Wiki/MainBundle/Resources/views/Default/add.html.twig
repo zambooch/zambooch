@@ -1,5 +1,16 @@
-<form action="{{ path('add') }}" method="post" {{ form_enctype(form) }}>
+{% extends '::base.html.twig' %}
+
+{% block head %}
+    <title>{% block title %}Просто добавь{% endblock %}</title>
+    <meta charset="utf-8">
+{% endblock head %}
+
+{% block body %}
+
+    <form action="{{ path('add') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
 
     <input type="submit" />
 </form>
+
+{% endblock body %}

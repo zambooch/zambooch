@@ -1,5 +1,18 @@
-<form action="{{ path('edit', {'id':edit.id}) }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
+{% extends '::base.html.twig' %}
 
-    <input type="submit" />
-</form>
+{% block head %}
+    <title>{% block title %}Отредактируй{% endblock %}</title>
+    <meta charset="utf-8">
+{% endblock head %}
+
+{% block body %}
+
+
+    <form action="{{ path('edit',{'alias':page.alias}) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+
+        <input type="submit" />
+    </form>
+
+
+{% endblock body %}

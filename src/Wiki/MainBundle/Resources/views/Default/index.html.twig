@@ -1,24 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{% block title %}Welcome{% endblock %}</title>
+{% extends '::base.html.twig' %}
+
+{% block head %}
+    <title>{% block title %}Wiki homepage{% endblock %}</title>
     <meta charset="utf-8">
-</head>
-<body>
-<p>Привет! Вот ссылки на существующие страницы</p>
-<hr>
-<h4>Список:</h4>
-{% for object in objects %}
-    <ul>
-        <em><li><a href="{{ path('show', {'alias': object.alias}) }}">
-            {{ object.title }} </br></br>
-        </a></li></em>
-    </ul>
-{% endfor %}
-<hr>
-<p><a href="{{ path('homepage') }}">Основная страница</a></p>
-<p><a href="{{ path('add') }}">Добавить страницу</a></p>
+{% endblock head %}
 
-</body>
-</html>
+{% block body %}
 
+    <p>Привет! Вот ссылки на существующие страницы</p>
+    <hr>
+    <h4>Список:</h4>
+    {% for object in objects %}
+        <ul>
+            <li><em><a href="{{ path('show', {'alias': object.alias}) }}">
+                {{ object.title }} 
+                    </a></em>
+                    <a href="{{path('edit',{'alias' : object.alias}) }}" style="margin: 0 10px; color: #85CB79">Редактировать</a>
+                    <a href="{{path('page-delete',{'alias' : object.alias}) }}" style="color: #CC0000">Удалить</a>
+                </li>
+        </ul>
+    {% endfor %}
+    <hr>
+    <p><a href="{{ path('homepage') }}" style="margin: 0 5px; color: #0000">Основная страница</a></p>
+    <p><a href="{{ path('add') }}" style="margin: 0 5px; color: #0000">Добавить страницу</a></p>
+
+{% endblock body %}
