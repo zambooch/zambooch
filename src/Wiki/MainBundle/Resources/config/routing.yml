@@ -1,3 +1,23 @@
+
+
+child_edit:
+    pattern: /wiki/edit/{parent_alias}/{alias}
+    defaults: { _controller: WikiMainBundle:Default:edit }
+    requirements:
+        page: alias \d+
+
+child_show:
+    pattern:  /wiki/{parent_alias}/{alias}
+    defaults: { _controller: WikiMainBundle:Default:show }
+    requirements:
+        page: alias \w+
+
+child_delete:
+    pattern:  /page-delete/{parent_alias}/{alias}
+    defaults: { _controller: WikiMainBundle:Default:delete }
+
+
+
 add:
     pattern: /wiki/add
     defaults: { _controller: WikiMainBundle:Default:add }

@@ -8,7 +8,7 @@
 {% block body %}
 
 
-    <form action="{{ path('edit',{'alias':page.alias}) }}" method="post" {{ form_enctype(form) }}>
+    <form action="{{ path('edit',{'alias': page.alias}) }}" method="post" {{ form_enctype(form) }}>
         {{ form_widget(form) }}
 
         <input type="submit" />

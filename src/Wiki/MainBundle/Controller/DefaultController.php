@@ -2,6 +2,7 @@
 
 namespace Wiki\MainBundle\Controller;
 
+use Propel\Generator\Behavior\NestedSet\NestedSetBehavior;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,7 +18,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $objects = WikiQuery::create()->find();
-        return $this->render('WikiMainBundle:Default:index.html.twig', array('objects'=>$objects));
+        return $this->render('WikiMainBundle:Default:index.html.twig', array('objects' => $objects));
     }
 
     public function showAction($alias)
@@ -25,10 +26,13 @@ class DefaultController extends Controller
         $obj = WikiQuery::create()
             ->findOneByAlias($alias);
         if (!$obj) {
-            throw $this->createNotFoundException('не найдено'.$alias);
+            throw $this->createNotFoundException('не найдено'.': '.$alias);
         }
         return $this->render('WikiMainBundle:Default:show.html.twig', array('obj' => $obj));
     }
+
+
+
 
     public function addAction(Request $request)
     {
@@ -60,7 +64,9 @@ class DefaultController extends Controller
             ->setTitle($data['title'])
             ->setText($data['text'])
             ->setAlias($data['alias'])
+            ->setParentId($data['parent_id'])
             ->save();
+
         return $page;
     }
 
@@ -75,7 +81,7 @@ class DefaultController extends Controller
         $page_del = $this->getPageDel($alias); //ищем страницу по ее алиасу
         $page_del->delete(); //удаляем страницу
         $this->addFlash('success','Проект успешно удалён');
-        return $this->render('WikiMainBundle:Default:delete.html.twig'); //переходим в шаблон удаления
+        return $this->redirect($this->generateUrl('homepage')); //переходим в шаблон удаления
     }
 
     private function getPage($alias)
@@ -116,3 +122,6 @@ class DefaultController extends Controller
 
     }
 }
+
+
+

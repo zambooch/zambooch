@@ -2,10 +2,12 @@
 
 namespace Wiki\MainBundle\Type;
 
-
 use Propel\PropelBundle\Form\BaseAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Null;
+use Wiki\MainBundle\Model\Wiki;
+use Wiki\MainBundle\Model\WikiQuery;
 
 
 /**
@@ -23,6 +25,13 @@ class PageType extends BaseAbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $options = array ();
+
+        foreach (WikiQuery::create()->find() as $page)
+        {
+            $options[$page->getId()]=$page->getTitle();
+        }
+
         $builder
             ->add('title', 'text', array (
                 'label'     => 'Title',
@@ -56,8 +65,13 @@ class PageType extends BaseAbstractType
                         'message' => 'Поле обязательно для заполнения'
                     )),
                 )
+            ))
+            ->add('parent_id', 'choice', array (
+                'choices'=>$options
             ));
 
 
     }
+
+
 }
