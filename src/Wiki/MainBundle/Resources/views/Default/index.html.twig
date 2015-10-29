@@ -10,16 +10,32 @@
     <p>Привет! Вот ссылки на существующие страницы</p>
     <hr>
     <h4>Список:</h4>
-    {% for object in objects %}
-        <ul>
-            <li><em><a href="{{ path('show', {'alias': object.alias}) }} " style="color: #191970">
-                {{ object.title }}
-                    </a></em>
-                <a href="{{path('edit',{'alias' : object.alias}) }}" style="margin: 0 10px; color: #85CB79">Редактировать</a>
-                <a href="{{path('page-delete',{'alias' : object.alias}) }}" style="margin: 0 10px; color: #FF1493" onclick="return confirm('Вы уверены, что хотите удалить страницу? {{ object.title }}')">Удалить страницу</a>
-                </li>
-        </ul>
-    {% endfor %}
+
+
+            {% for object in objects %}
+                <ul>
+
+                    {% if object.parentid == NULL %}
+
+                        <li><em><a href="{{ path('show', {'alias': object.alias}) }} " style="color: #191970"> {{ object.title }} </a></em>
+                            <a href="{{path('edit',{'alias' : object.alias}) }}" style="margin: 0 10px; color: #85CB79">Редактировать</a>
+                            <a href="{{path('page-delete',{'alias' : object.alias}) }}" style="margin: 0 10px; color: #FF1493" onclick="return confirm('Вы уверены, что хотите удалить страницу? {{ object.title }}')">Удалить страницу</a>
+                        </li>
+
+                    {% elseif object.parentid != NULL %}
+                        <ul>
+                        <li><em><a href="{{ path('show', {'alias': object.alias}) }} " style="color: #191970"> {{ object.title }} </a></em>
+                            <a href="{{path('edit',{'alias' : object.alias}) }}" style="margin: 0 10px; color: #85CB79">Редактировать</a>
+                            <a href="{{path('page-delete',{'alias' : object.alias}) }}" style="margin: 0 10px; color: #FF1493" onclick="return confirm('Вы уверены, что хотите удалить страницу? {{ object.title }}')">Удалить страницу</a>
+                        </li>
+                        </ul>
+                    {% endif %}
+
+                </ul>
+            {% endfor %}
+    
+
+
     <hr>
     <p><a href="{{ path('add') }}" style="margin: 0 5px; color: #000000">Добавить страницу</a></p>
 

@@ -15,17 +15,20 @@ use Wiki\MainBundle\Model\WikiQuery;
 
 class DefaultController extends Controller
 {
+
     public function indexAction()
     {
         $objects = WikiQuery::create()->find();
         return $this->render('WikiMainBundle:Default:index.html.twig', array('objects' => $objects));
     }
 
+
     public function showAction($alias)
     {
         $obj = WikiQuery::create()
             ->findOneByAlias($alias);
-        if (!$obj) {
+
+        if (!$obj  ) {
             throw $this->createNotFoundException('не найдено'.': '.$alias);
         }
         return $this->render('WikiMainBundle:Default:show.html.twig', array('obj' => $obj));
@@ -43,8 +46,8 @@ class DefaultController extends Controller
                 $page = $this->addPage($form);
                 $this->addFlash('success','Страница успешно создана' );
                 //редирект на страницу просмотра
-                return $this->redirect($this->generateUrl('homepage', array(
-                    'id'=> $page->getId()
+                return $this->redirect($this->generateUrl('show', array(
+                    'alias'=> $page->getAlias()
                 )));
             } catch (\Exception $e) {
                 $form->addError(new FormError($e->getMessage()));

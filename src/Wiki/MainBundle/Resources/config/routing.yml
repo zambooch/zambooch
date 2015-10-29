@@ -1,43 +1,26 @@
 
 
-child_edit:
-    pattern: /wiki/edit/{parent_alias}/{alias}
-    defaults: { _controller: WikiMainBundle:Default:edit }
-    requirements:
-        page: alias \d+
-
-child_show:
-    pattern:  /wiki/{parent_alias}/{alias}
-    defaults: { _controller: WikiMainBundle:Default:show }
-    requirements:
-        page: alias \w+
-
-child_delete:
-    pattern:  /page-delete/{parent_alias}/{alias}
-    defaults: { _controller: WikiMainBundle:Default:delete }
-
-
-
 add:
-    pattern: /wiki/add
+    pattern: /add
     defaults: { _controller: WikiMainBundle:Default:add }
 
 edit:
-    pattern: /wiki/edit/{alias}
+    pattern: /edit/{alias}
     defaults: { _controller: WikiMainBundle:Default:edit }
     requirements:
-        page: alias \d+
+        page: alias \w+
 
 show:
-    pattern:  /wiki/{alias}
+    pattern:  /{alias}
     defaults: { _controller: WikiMainBundle:Default:show }
     requirements:
         page: alias \w+
+
 
 page-delete:
     pattern:  /page-delete/{alias}
     defaults: { _controller: WikiMainBundle:Default:delete }
 
 homepage:
-    pattern:  /wiki
+    pattern:  /
     defaults: { _controller: WikiMainBundle:Default:index }

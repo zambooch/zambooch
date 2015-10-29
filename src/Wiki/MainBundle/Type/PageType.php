@@ -23,18 +23,27 @@ class PageType extends BaseAbstractType
         return 'page_form';
     }
 
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $options = array ();
+        $data = $builder->getData();
+        //var_dump($data->getId());
+        //die();
+        $select_options = array(0 => 'без родительской статьи');
+
 
         foreach (WikiQuery::create()->find() as $page)
         {
-            $options[$page->getId()]=$page->getTitle();
+            $select_options[$page->getId()] = $page->getTitle();
+            if ($page->getParentId()) unset ($select_options[$page->getId()]);
+            elseif($data && $data->getId() == $page->getId()) unset($select_options[$page->getId()]);
+
         }
 
         $builder
             ->add('title', 'text', array (
-                'label'     => 'Title',
+                'label'     => 'Заголовок страницы',
                 'required'  => TRUE,
                 'attr' => array(
                     'class' => 'form-control',
@@ -46,7 +55,7 @@ class PageType extends BaseAbstractType
                 )
             ))
             ->add('text', 'textarea', array(
-                'label' => 'Text',
+                'label' => 'Текст новой страницы',
                 'required' => TRUE,
                 'constraints' => array (
                     new NotBlank(array (
@@ -55,7 +64,7 @@ class PageType extends BaseAbstractType
                 )
             ))
             ->add('alias', 'text', array (
-                'label'     => 'Alias',
+                'label'     => 'Адрес новой страницы',
                 'required'  => TRUE,
                 'attr' => array(
                     'class' => 'form-control',
@@ -67,11 +76,11 @@ class PageType extends BaseAbstractType
                 )
             ))
             ->add('parent_id', 'choice', array (
-                'choices'=>$options
+
+                'label'=> 'Родительская статья',
+                'choices'=>$select_options,
+
             ));
-
-
     }
-
 
 }
